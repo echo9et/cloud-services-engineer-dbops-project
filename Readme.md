@@ -17,7 +17,6 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO <user>;
 
 ## Колличество проданных сосисок за последние 7 дней
 ```sql
-EXPLAIN ANALYZE
 SELECT
   orders.date_created,                
   SUM(order_product.quantity) AS total_sold
@@ -32,7 +31,7 @@ ORDER BY
   orders.date_created;
 ```
 
-**Время выполнения без индексов: `~54 сек`
+**Время выполнения без индексов: `~54 сек`**
 ```
  Finalize GroupAggregate  (cost=200938.42..201159.79 rows=200 width=12) (actual time=53757.704..54013.507 rows=7 loops=1)
    Group Key: orders.date_created
@@ -62,7 +61,7 @@ ORDER BY
  Execution Time: 54015.628 ms
 ```
 
-**Время выполнения с индексами: `~8 сек`
+**Время выполнения с индексами: `~8 сек`**
 ```
  Finalize GroupAggregate  (cost=190235.29..190258.10 rows=90 width=12) (actual time=8220.483..8290.384 rows=7 loops=1)
    Group Key: orders.date_created
@@ -101,3 +100,5 @@ ORDER BY
 |--------------------------|---------------------|-------------------|
 | Время выполнения         | 54015.628           | 8291.354          |
 | Planning Time            | 63.916              | 35.179            |
+
+Время: выполнения запроса при использование индексов сократилось в ~6.5 раз.
