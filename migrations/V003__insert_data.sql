@@ -1,5 +1,6 @@
--- наполнение таблиц тестовыми данными
+-- наполнение таблиц данными
 
+-- вставка продуктов
 INSERT INTO product (id, name, picture_url, price) 
 VALUES
     (1, 'Сливочная',     'https://res.cloudinary.com/sugrobov/image/upload/v1623323635/repos/sausages/6.jpg', 320.00),
@@ -9,6 +10,7 @@ VALUES
     (5, 'Мюнхенская',    'https://res.cloudinary.com/sugrobov/image/upload/v1623323635/repos/sausages/2.jpg', 330.00),
     (6, 'Русская',       'https://res.cloudinary.com/sugrobov/image/upload/v1623323635/repos/sausages/1.jpg', 189.00);
 
+-- вставка заказов (10 миллионов)
 INSERT INTO orders (id, status, date_created)
 SELECT 
     i,
@@ -17,6 +19,7 @@ SELECT
 FROM 
     generate_series(1, 10000000) AS s(i);
 
+-- вставка связей (10 миллионов)
 INSERT INTO order_product (quantity, order_id, product_id)
 SELECT 
     1 + floor(random() * 50)::INTEGER, 
